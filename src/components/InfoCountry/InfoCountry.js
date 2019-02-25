@@ -5,7 +5,8 @@ import { Jumbotron } from 'reactstrap';
 class Info extends Component {
 
     state = {
-        loadedCountry: null
+        loadedCountry: null,
+        border: []
     };
 
     componentDidUpdate() {
@@ -15,8 +16,23 @@ class Info extends Component {
         if (newCountryId) {
             if (!loadedCountry || newCountryId !== loadedCountry.id) {
                 axios.get('alpha/' + this.props.countryId).then(response => {
-                    this.setState({loadedCountry: response.data});
-                });
+                    const requests = response.data.borders.map(country => {
+                        return axios.get('alpha/' + country).then(response => {
+                            return response.data
+                        });
+                    });
+
+                    return Promise.all(requests)
+                        .then(countries =>
+                            this.setState({
+                                loadedCountry: response.data,
+                                border: [...countries]
+                            })
+                        ).catch(error => {
+                            console.log(error);
+
+                        });
+                })
             }
         }
     }
@@ -26,13 +42,20 @@ class Info extends Component {
             this.state.loadedCountry ? <div>
                 <Jumbotron className="mt-3 mr-3" style={{ height: 600}}>
                     <h1 className="text-danger mb-4">{this.state.loadedCountry.name} <img className="float-right" style={{ height: 200}} src={this.state.loadedCountry.flag} alt="#"/></h1>
-                    <h5 className="text-left">Capital: {this.state.loadedCountry.capital}</h5>
-                    <h5 className="mb-5 text-left">Population: {this.state.loadedCountry.population}</h5>
-                    <div className="text-left">Borders with:
-                            <p>{this.state.loadedCountry.borders}</p>
+                    <h5 className="text-left">Столица: {this.state.loadedCountry.capital}</h5>
+                    <h5 className="mb-5 text-left">Население: {this.state.loadedCountry.population}</h5>
+                    <div className="text-left">Граничит с:
+                        <div className="mt-3 ml-5">
+                            {this.state.border.map(country =>
+                                <p>{country.name}</p>
+                            )}
+                        </div>
                     </div>
                 </Jumbotron>
-            </div> : null
+            </div> :
+                <Jumbotron className="mt-3 mr-3" style={{ height: 600}}>
+                    <h2 className="text-warning">Выберите страну чтобы узнать об этой стране по больше</h2>
+                </Jumbotron>
         );
     }
 }
