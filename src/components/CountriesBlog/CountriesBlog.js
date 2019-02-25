@@ -7,7 +7,7 @@ class Blog extends Component {
     render() {
         return (
             <div>
-                <Card className="mt-4 ml-3 mb-0" body inverse style={{ backgroundColor: '#c3c3c3', overflowY: 'scroll', height: 580}}>
+                <Card className="mt-4 mb-0" body inverse style={{ backgroundColor: '#c3c3c3', overflowY: 'scroll', height: 580}}>
                     {this.props.children}
                 </Card>
             </div>

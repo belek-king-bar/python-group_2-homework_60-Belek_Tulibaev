@@ -37,7 +37,7 @@ class Country extends Component {
             return (
                 <Fragment>
                     <Row>
-                        <Col xs={4}>
+                        <Col xs={3} className="ml-5">
                             <Blog>
                                 {this.state.countries.map(country => (
                                     <Countries
@@ -48,7 +48,7 @@ class Country extends Component {
                                     ))}
                             </Blog>
                         </Col>
-                        <Col xs={8}>
+                        <Col xs={8} className="ml-4">
                                 <Info countryId={this.state.selectedCountryId}/>
                         </Col>
                     </Row>

@@ -40,7 +40,7 @@ class Info extends Component {
     render() {
         return (
             this.state.loadedCountry ? <div>
-                <Jumbotron className="mt-4 mr-4 mb-0" style={{ height: 580, overflowY: 'scroll'}}>
+                <Jumbotron className="mt-4 mr-3 mb-0 pb-0" style={{ height: 580, overflowY: 'scroll'}}>
                     <h1 className="text-danger mb-4">{this.state.loadedCountry.name} <img className="float-right" style={{ height: 200, width: 300}} src={this.state.loadedCountry.flag} alt="#"/></h1>
                     <h5 className="text-left">Столица: {this.state.loadedCountry.capital}</h5>
                     <h5 className="mb-5 text-left">Население: {this.state.loadedCountry.population} человек</h5>
