@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { Jumbotron } from 'reactstrap';
+import { Jumbotron, Row } from 'reactstrap';
 
 class Info extends Component {
 
@@ -40,20 +40,20 @@ class Info extends Component {
     render() {
         return (
             this.state.loadedCountry ? <div>
-                <Jumbotron className="mt-3 mr-3" style={{ height: 600}}>
-                    <h1 className="text-danger mb-4">{this.state.loadedCountry.name} <img className="float-right" style={{ height: 200}} src={this.state.loadedCountry.flag} alt="#"/></h1>
+                <Jumbotron className="mt-4 mr-4" style={{ height: 580}}>
+                    <h1 className="text-danger mb-4">{this.state.loadedCountry.name} <img className="float-right" style={{ height: 200, width: 300}} src={this.state.loadedCountry.flag} alt="#"/></h1>
                     <h5 className="text-left">Столица: {this.state.loadedCountry.capital}</h5>
-                    <h5 className="mb-5 text-left">Население: {this.state.loadedCountry.population}</h5>
+                    <h5 className="mb-5 text-left">Население: {this.state.loadedCountry.population} человек</h5>
                     <div className="text-left">Граничит с:
-                        <div className="mt-3 ml-5">
+                        <Row className="mt-3 ml-5">
                             {this.state.border.map(country =>
-                                <p>{country.name}</p>
+                                <p className="ml-5"> -- {country.name} -- </p>
                             )}
-                        </div>
+                        </Row>
                     </div>
                 </Jumbotron>
             </div> :
-                <Jumbotron className="mt-3 mr-3" style={{ height: 600}}>
+                <Jumbotron className="mt-4 mr-4" style={{ height: 580}}>
                     <h2 className="text-warning">Выберите страну чтобы узнать об этой стране по больше</h2>
                 </Jumbotron>
         );
